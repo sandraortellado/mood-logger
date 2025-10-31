@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import json
 from datetime import datetime
-from streamlit_gsheets import GSheetsConnection
 import gspread
 from google.oauth2.service_account import Credentials
 from streamlit_autorefresh import st_autorefresh
