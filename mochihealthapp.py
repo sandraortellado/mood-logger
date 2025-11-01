@@ -83,7 +83,10 @@ if not df.empty:
         xaxis_title="Date",
         yaxis_title="Count",
         bargap=0.2,
-        legend_title="Mood"
+        legend_title="Mood",
+        xaxis=dict(
+            tickformat="%b %d"
+        )
     )
     
     st.plotly_chart(fig, width='stretch')
