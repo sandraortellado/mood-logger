@@ -1,4 +1,4 @@
-Mood Logger
+## Mood Logger
 
 A simple mood-tracking web app built with Streamlit.
 Users select a face emoji reflecting their mood, and entries are saved to Google Sheets for easy visualization and tracking.
