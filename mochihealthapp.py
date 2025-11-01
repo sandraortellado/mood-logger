@@ -16,9 +16,10 @@ st.title("Log a mood")
 url = "https://docs.google.com/spreadsheets/d/14Qlp3YU-aLyzCsqpsbakWajG3o2JxEyOmsddZMlFW_s/edit?gid=0#gid=0"
 scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
-key_dict = json.loads(st.secrets["GCP_CREDENTIALS"])
+key_json = base64.b64decode(st.secrets["GCP_CREDENTIALS_B64"]).decode("utf-8")
+creds_dict = json.loads(key_json)
 creds = Credentials.from_service_account_info(
-    key_dict,
+    creds_dict,
     scopes=[
         "https://spreadsheets.google.com/feeds",
         "https://www.googleapis.com/auth/drive"
