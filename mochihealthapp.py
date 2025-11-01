@@ -29,11 +29,7 @@ creds = Credentials.from_service_account_info(
 
 client = gspread.authorize(creds)
 sheet = client.open_by_url(url).sheet1
-
-#for resetting fields
-def reset_fields():
-    st.session_state["faces"] = 2
-    st.session_state["text"] = ""
+    
 
 #create "form"
 with st.form("my_form"):
@@ -52,7 +48,10 @@ with st.form("my_form"):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         sheet.append_row([timestamp, sentiment_mapping[selected], text])
         success = st.success("✅ Added to Google Sheet!")
-        reset_fields()
+        #reset fields
+        st.session_state["faces"] = 2
+        st.session_state["text"] = ""
+        st.rerun()
 
 #read data - ideally, this would be from a database but in the interest of time we will use the sheet as a database
 rows = sheet.get_all_values()
