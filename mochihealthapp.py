@@ -47,11 +47,12 @@ with st.form("my_form"):
     }
     selected = st.feedback("faces", key="faces")
     text = st.text_area("Add a note:", key="text")
-    submitted = st.form_submit_button("Submit",on_click=reset_fields)
+    submitted = st.form_submit_button("Submit")
     if submitted:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         sheet.append_row([timestamp, sentiment_mapping[selected], text])
         success = st.success("✅ Added to Google Sheet!")
+        reset_fields()
 
 #read data - ideally, this would be from a database but in the interest of time we will use the sheet as a database
 rows = sheet.get_all_values()
