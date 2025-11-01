@@ -60,7 +60,7 @@ df = pd.DataFrame(rows[1:], columns=rows[0])
 if not df.empty:
     #for grouping data
     df['Timestamp'] = pd.to_datetime(df['Timestamp'])
-    df['date'] = pd.to_datetime(df['Timestamp'].dt.date) 
+    df['date'] = df['Timestamp'].dt.date
     mood_counts = df.groupby(['date', 'mood']).size().reset_index(name='count')
     
     #keep legend in order and apply color scheme
@@ -86,7 +86,7 @@ if not df.empty:
         legend_title="Mood"
     )
     
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
 else:
     st.info("No mood entries yet. Fill out the form above to get started!")
