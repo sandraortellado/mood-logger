@@ -5,7 +5,7 @@ from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 from streamlit_autorefresh import st_autorefresh
-import altair as alt
+import plotly.express as px
 import base64
 
 
@@ -46,7 +46,6 @@ with st.form("my_form"):
         4: "very happy",
     }
     selected = st.feedback("faces", key="faces")
-
     text = st.text_area("Add a note:", key="text")
     submitted = st.form_submit_button("Submit",on_click=reset_fields)
     if submitted:
@@ -70,17 +69,24 @@ if not df.empty:
     mood_counts['mood'] = pd.Categorical(mood_counts['mood'], categories=ordered_moods, ordered=True)
     
     #visualize
-    chart = alt.Chart(mood_counts).mark_bar().encode(
-        x='date:T',
-        y='count:Q',
-        color=alt.Color('mood:N', scale=alt.Scale(domain=ordered_moods, range=colors))
-    ).properties(
-        width=700,
-        height=400
+    fig = px.bar(
+        mood_counts,
+        x="date",
+        y="count",
+        color="mood",
+        category_orders={"mood": ordered_moods},
+        color_discrete_sequence=colors,
+        title="Mood Trends Over Time"
     )
 
-    st.markdown("### Mood Trends Over Time")
-    st.altair_chart(chart, width='stretch')
+    fig.update_layout(
+        xaxis_title="Date",
+        yaxis_title="Count",
+        bargap=0.2,
+        legend_title="Mood"
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
 
 else:
     st.info("No mood entries yet. Fill out the form above to get started!")
