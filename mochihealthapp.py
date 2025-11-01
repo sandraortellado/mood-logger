@@ -6,6 +6,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from streamlit_autorefresh import st_autorefresh
 import altair as alt
+import base64
 
 
 st_autorefresh(interval=5000, limit=None, key="refresh")
