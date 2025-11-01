@@ -80,7 +80,7 @@ if not df.empty:
     )
 
     st.markdown("### Mood Trends Over Time")
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, width='stretch')
 
 else:
     st.info("No mood entries yet. Fill out the form above to get started!")
